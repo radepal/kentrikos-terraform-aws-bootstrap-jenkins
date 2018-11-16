@@ -29,7 +29,7 @@ data "aws_ssm_parameter" "proxy_no" {
 
 locals {
   jenkins_no_proxy_list       = "${join("\\n",split(",",data.aws_ssm_parameter.proxy_no.value))}"
-  jenkins_proxy_http          = "${element(split(":",replace(data.aws_ssm_parameter.proxy_http.value,"(http|https)://","")),0)}"
+  jenkins_proxy_http          = "${element(split(":",replace(replace(data.aws_ssm_parameter.proxy_http.value,"http://",""),"https://","" )),0)}"
   iam_policy_names_list_local = "${join(",", var.iam_policy_names)}"
 
   //  iam_policy_names_list_cross = "${var.iam_cross_account_policy_name != "" ? var.iam_cross_account_policy_name : ""}"

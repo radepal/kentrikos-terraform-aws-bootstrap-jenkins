@@ -72,7 +72,7 @@ variable "http_proxy" {
 
 variable "jenkins_proxy_http_port" {
   description = "(Optional) HTTP proxy port to use for access to internet. This is required to install packages on instances deployed in ops AWS accounts."
-  default     = ""
+  default     = "8080"
 }
 
 variable "ec2_instance_type" {

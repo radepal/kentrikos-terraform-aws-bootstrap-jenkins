@@ -49,8 +49,8 @@ module "jenkins" {
 | http_proxy | (Optional) HTTP proxy to use for access to internet. This is required to install packages on instances deployed in default AWS accounts. | string | `` | no |
 | iam_policy_names | (Optional) List of IAM policy names to apply to the instance. | list | `<list>` | no |
 | iam_policy_names_prefix | (Optional) Prefix for policy names created by portal. | string | `customer/` | no |
-| jenkins_admin_password | Local jenkins Admin username. | string | `NordPassword` | no |
-| jenkins_admin_username | Local jenkins Admin username. | string | `NordAdmin` | no |
+| jenkins_admin_password | Local jenkins Admin username. | string | `Password` | no |
+| jenkins_admin_username | Local jenkins Admin username. | string | `Admin` | no |
 | jenkins_job_repo_url | (Optional) Bitbucket repo url with Jenkins Jobs | string | `ssh://git@github.com:kentrikos/jenkins-bootstrap-pipelines.git` | no |
 | key_name_prefix | (Optional) The key name of the Key Pair to use for remote management. | string | `jenkins_master` | no |
 | name_suffix | (Optional) Instance name suffix. | string | `-jenkins-master-node` | no |

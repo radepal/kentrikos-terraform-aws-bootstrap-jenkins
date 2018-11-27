@@ -69,7 +69,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("iam/Jenkinsfile")
+            scriptPath("operations/iam/Jenkinsfile")
           }
         }
        }
@@ -88,7 +88,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("kubernetes/install/Jenkinsfile")
+            scriptPath("operations/kubernetes/install/Jenkinsfile")
           }
         }
        }
@@ -107,7 +107,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("kubernetes/destroy/Jenkinsfile")
+            scriptPath("operations/kubernetes/destroy/Jenkinsfile")
           }
         }
        }
@@ -126,7 +126,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("jx/Jenkinsfile")
+            scriptPath("operations/jx/Jenkinsfile")
           }
         }
        }

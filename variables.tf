@@ -43,7 +43,7 @@ variable "http_allowed_cidrs" {
 
 variable "iam_policy_names_prefix" {
   description = "(Optional) Prefix for policy names created by portal."
-  default     = "customer/"
+  default     = "/"
 }
 
 variable "iam_policy_names" {
@@ -55,7 +55,7 @@ variable "iam_policy_names" {
     "KOPS_MANAGEMENT_NODE_cw_cwlogs_sns",
     "KOPS_MANAGEMENT_NODE_dynamodb",
     "KOPS_MANAGEMENT_NODE_ec2",
-    "KOPS_MANAGEMENT_NODE_ecr_route53",
+    "KOPS_MANAGEMENT_NODE_ecr",
     "KOPS_MANAGEMENT_NODE_iam",
     "KOPS_MANAGEMENT_NODE_s3",
     "KOPS_MANAGEMENT_NODE_ssm",

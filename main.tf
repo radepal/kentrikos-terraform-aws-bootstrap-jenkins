@@ -66,12 +66,15 @@ data "template_file" "jenkins-jenkins_yaml" {
     jenkins_url             = "${aws_instance.jenkins_master_node.private_ip}:8080"
     jenkins_config_repo_url = "${var.jenkins_config_repo_url}"
 
-    jenkins_job_repo_url    = "${var.jenkins_job_repo_url}"
-    aws_region              = "${data.aws_region.current.name}"
-    aws_account_number      = "${data.aws_caller_identity.current.account_id}"
-    jenkins_proxy_http_port = "${var.jenkins_proxy_http_port}"
-    jenkins_no_proxy_list   = "${local.jenkins_no_proxy_list}"
-    jenkins_proxy_http      = "${local.jenkins_proxy_http}"
+    jenkins_job_repo_url           = "${var.jenkins_job_repo_url}"
+    aws_region                     = "${data.aws_region.current.name}"
+    aws_opperation_account_number  = "${data.aws_caller_identity.current.account_id}"
+    aws_application_account_number = "${var.application_aws_account_number}"
+    jenkins_proxy_http_port        = "${var.jenkins_proxy_http_port}"
+    jenkins_no_proxy_list          = "${local.jenkins_no_proxy_list}"
+    jenkins_proxy_http             = "${local.jenkins_proxy_http}"
+
+    iam_jobs_path = "${var.auto_IAM_mode == 1 ? "auto" : "manual" }"
 
     product_domain_name = "${var.product_domain_name}"
     environment_type    = "${var.environment_type}"
@@ -214,10 +217,40 @@ resource "aws_iam_role" "jenkins_master_node" {
 EOF
 }
 
+data "aws_iam_policy_document" "AssumeJenkinsCrossAccount" {
+  statement {
+    sid    = "IAMJenkinsCrossAccountRolePermissions"
+    effect = "Allow"
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    resources = [
+      "arn:aws:iam::${var.application_aws_account_number}:role/KopsCrossAccount",
+    ]
+  }
+}
+
+# This policy is created only if auto policy creation is allowed (auto_IAM_mode)
+resource "aws_iam_policy" "AssumeJenkinsCrossAccount" {
+  count  = "${var.auto_IAM_mode}"
+  name   = "AssumeJenkinsCrossAccount"
+  path   = "${var.auto_IAM_path}"
+  policy = "${data.aws_iam_policy_document.AssumeJenkinsCrossAccount.json}"
+}
+
 resource "aws_iam_role_policy_attachment" "jenkins_master_node" {
   role       = "${aws_iam_role.jenkins_master_node.name}"
   count      = "${length(split(",",local.iam_policy_names_list))}"
   policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${var.iam_policy_names_prefix}${element(split(",",local.iam_policy_names_list), count.index)}"
+}
+
+# This policy is attached only if auto policy creation is allowed (auto_IAM_mode)
+resource "aws_iam_role_policy_attachment" "jenkins_master_node_cross_account" {
+  role       = "${aws_iam_role.jenkins_master_node.name}"
+  count      = "${var.auto_IAM_mode}"
+  policy_arn = "${aws_iam_policy.AssumeJenkinsCrossAccount.arn}"
 }
 
 resource "aws_security_group" "ssh" {

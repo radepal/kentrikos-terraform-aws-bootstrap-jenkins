@@ -45,7 +45,11 @@ module "jenkins" {
 | product_domain_name | (Required) Name of product domain, will be used to create other names | string | - | yes |
 | subnet_id | (Required) The VPC Subnet ID to launch the instance in. | string | - | yes |
 | vpc_id | (Required) The VPC ID to launch the instance in. | string | - | yes |
+| operation_aws_account_number | AWS transit account number (without hyphens) | string | - | yes |
+| application_aws_account_number | AWS application account number (without hyphens) | string | - | yes |
 | ami_id | (Optional) The AMI ID, which provides restoration of pre-created managment node. (default is false). | string | `` | no |
+| auto_IAM_mode | Create IAM Policies in AWS (default false) | string | `false` | no |
+| auto_IAM_path | IAM path for auto IAM mode uploaded policies | string | `/` | no |
 | ec2_instance_type | Size of EC2 instance. | string | `t3.medium` | no |
 | http_allowed_cidrs | (Optional) list of cidr ranges to allow HTTP access. | list | `<list>` | no |
 | http_proxy | (Optional) HTTP proxy to use for access to internet. This is required to install packages on instances deployed in ops AWS accounts. | string | `` | no |

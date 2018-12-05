@@ -11,6 +11,14 @@ variable "name_suffix" {
   default     = "jenkins-master-node"
 }
 
+variable "operation_aws_account_number" {
+  description = "AWS operation account number (without hyphens)"
+}
+
+variable "application_aws_account_number" {
+  description = "AWS application account number (without hyphens)"
+}
+
 variable "vpc_id" {
   description = "(Required) The VPC ID to launch the instance in."
 }
@@ -101,4 +109,14 @@ variable "jenkins_job_repo_url" {
 
 variable "jenkins_config_repo_url" {
   description = "Git repo url with Product Domain configuration"
+}
+
+variable "auto_IAM_mode" {
+  description = "Create IAM Policies in AWS(default false)"
+  default     = false
+}
+
+variable "auto_IAM_path" {
+  description = "IAM path for auto IAM mode uploaded policies"
+  default     = "/"
 }

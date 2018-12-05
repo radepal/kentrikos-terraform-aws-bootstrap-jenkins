@@ -27,8 +27,10 @@ jenkins:
         value: "${jenkins_job_repo_url}"
       - key: "AWS_REGION"
         value: "${aws_region}"
-      - key: "AWS_ACCOUNT_NUMBER"
-        value: "${aws_account_number}"
+      - key: "AWS_OPERATIONS_ACCOUNT_NUMBER"
+        value: "${aws_operations_account_number}"
+      - key: "AWS_APPLICATION_ACCOUNT_NUMBER"
+        value: "${aws_application_account_number}"
       - key: "PRODUCT_DOMAIN_NAME"
         value: "${product_domain_name}"
       - key: "ENVIRONMENT_TYPE"
@@ -69,7 +71,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("operations/iam/Jenkinsfile")
+            scriptPath("operations/iam/${iam_jobs_path}/Jenkinsfile")
           }
         }
        }
@@ -88,7 +90,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("application/iam/Jenkinsfile")
+            scriptPath("application/iam/${iam_jobs_path}/Jenkinsfile")
           }
         }
        }

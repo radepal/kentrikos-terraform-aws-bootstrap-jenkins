@@ -94,13 +94,13 @@ resource "aws_key_pair" "jenkins_master_node_key" {
 resource "local_file" "public_key_openssh" {
   depends_on = ["tls_private_key.jenkins_master_node_key"]
   content    = "${tls_private_key.jenkins_master_node_key.public_key_openssh}"
-  filename   = "${pathexpand("~/.ssh/")}${aws_key_pair.jenkins_master_node_key.key_name}.pub"
+  filename   = "${pathexpand("~/.ssh/")}/${aws_key_pair.jenkins_master_node_key.key_name}.pub"
 }
 
 resource "local_file" "private_key_pem" {
   depends_on = ["tls_private_key.jenkins_master_node_key"]
   content    = "${tls_private_key.jenkins_master_node_key.private_key_pem}"
-  filename   = "${pathexpand("~/.ssh/")}${aws_key_pair.jenkins_master_node_key.key_name}.pem"
+  filename   = "${pathexpand("~/.ssh/")}/${aws_key_pair.jenkins_master_node_key.key_name}.pem"
 }
 
 data "http" "ip_priv" {

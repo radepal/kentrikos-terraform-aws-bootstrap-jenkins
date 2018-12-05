@@ -33,6 +33,9 @@ module "jenkins" {
 
   ssh_allowed_cidrs   = ["10.10.10.0/24"]
   http_allowed_cidrs  = ["10.10.10.0/24"]
+  
+  operations_aws_account_number  = "123456789012"
+  application_aws_account_number = "210987654321"
 }
 ```
 

@@ -11,8 +11,8 @@ variable "name_suffix" {
   default     = "jenkins-master-node"
 }
 
-variable "operation_aws_account_number" {
-  description = "AWS operation account number (without hyphens)"
+variable "operations_aws_account_number" {
+  description = "AWS operations account number (without hyphens)"
 }
 
 variable "application_aws_account_number" {
@@ -112,7 +112,7 @@ variable "jenkins_config_repo_url" {
 }
 
 variable "auto_IAM_mode" {
-  description = "Create IAM Policies in AWS(default false)"
+  description = "Create IAM Policies in AWS"
   default     = false
 }
 

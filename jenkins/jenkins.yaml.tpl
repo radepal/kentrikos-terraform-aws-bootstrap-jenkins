@@ -71,7 +71,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("operations/iam/${iam_jobs_path}/Jenkinsfile")
+            scriptPath("operations/iam/create/${iam_jobs_path}/Jenkinsfile")
           }
         }
        }
@@ -90,7 +90,7 @@ jobs:
                 branch("*/master")
               }
             }
-            scriptPath("application/iam/${iam_jobs_path}/Jenkinsfile")
+            scriptPath("application/iam/create/${iam_jobs_path}/Jenkinsfile")
           }
         }
        }

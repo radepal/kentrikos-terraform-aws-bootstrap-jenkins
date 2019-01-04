@@ -60,7 +60,7 @@ variable "iam_policy_names" {
 
   default = [
     "KOPS_MANAGEMENT_NODE_autoscaling_elb",
-    "KOPS_MANAGEMENT_NODE_cw_cwlogs_sns",
+    "KOPS_MANAGEMENT_NODE_lma",
     "KOPS_MANAGEMENT_NODE_dynamodb",
     "KOPS_MANAGEMENT_NODE_ec2",
     "KOPS_MANAGEMENT_NODE_ecr",

@@ -27,10 +27,17 @@ echo "Updating all packages:"
 yum update -y
 
 yum  -y install jenkins java-1.8.0-openjdk java-1.8.0-openjdk-devel git jq kubectl chromium
-amazon-linux-extras install docker -y
-service docker start
-usermod -a -G docker ec2-user
 
+amazon-linux-extras install docker -y
+
+mkdir -p /etc/systemd/system/docker.service.d
+
+${docker_proxy_info}
+
+usermod -a -G docker ec2-user
+usermod -a -G docker jenkins
+systemd daemon-reload
+service docker restart
 
 TERRAFORM_VERSION=$(curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest | grep tag_name | cut -d '"' -f 4|cut -c 2-)
 TERRAFORM_DOWNLOAD_URL="https://releases.hashicorp.com/terraform/$${TERRAFORM_VERSION}/terraform_$${TERRAFORM_VERSION}_linux_amd64.zip"

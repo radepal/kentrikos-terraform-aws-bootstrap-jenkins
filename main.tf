@@ -47,13 +47,24 @@ EOC
 "
 source /etc/profile.d/http-proxy.sh
     EOF
+
+  docker_proxy = <<EOF
+bash -c "cat <<EOC > /etc/systemd/system/docker.service.d/http-proxy.conf
+[Service]
+Environment="HTTP_PROXY=${data.aws_ssm_parameter.proxy_http.value}"
+Environment="HTTPS_PROXY=${data.aws_ssm_parameter.proxy_https.value}"
+Environment="NO_PROXY=${data.aws_ssm_parameter.proxy_no.value}"
+EOC
+"
+    EOF
 }
 
 data "template_file" "user_data" {
   template = "${file("${path.module}/user-data.tpl")}"
 
   vars {
-    proxy_info = "${length(var.http_proxy) > 0 ? local.proxy_exports : var.http_proxy }"
+    proxy_info        = "${length(var.http_proxy) > 0 ? local.proxy_exports : var.http_proxy }"
+    docker_proxy_info = "${length(var.http_proxy) > 0 ? local.docker_proxy : var.http_proxy }"
   }
 }
 

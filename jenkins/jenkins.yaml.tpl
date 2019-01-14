@@ -132,6 +132,25 @@ jobs:
           }
         }
        }
+      pipelineJob("Generate_JX_Docker_Image") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("*/master")
+              }
+            }
+            scriptPath("operations/images/jenkins-x-image/Jenkinsfile")
+          }
+        }
+       }
       pipelineJob("Install_JX") {
         description()
         disabled(false)

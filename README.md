@@ -6,6 +6,7 @@ Resources created:
 * EC2 instance with all required software prerequisites installed
 * new Security Group for ssh  and web access
 * IAM profile for an instance
+* DNS entry in Route53 for Jenkins master
 * [not yet] cronjob for sending custom CloudWatch metric reporting cluster health
 * [not yet] [optional] Custom AMI for EC2 instance, it gives possibility to restore state of management node
 
@@ -50,6 +51,8 @@ module "jenkins" {
 | vpc_id | (Required) The VPC ID to launch the instance in. | string | - | yes |
 | operations_aws_account_number | AWS operations account number (without hyphens) | string | - | yes |
 | application_aws_account_number | AWS application account number (without hyphens) | string | - | yes |
+| jenkins_dns_domain_hosted_zone_ID | R53 Hosted Zone ID for domain that will be used by Jenkins master | string | - | yes |
+| jenkins_dns_hostname | Local part of FQDN for Jenkins master | string | `jenkins` | no |
 | ami_id | (Optional) The AMI ID, which provides restoration of pre-created managment node. (default is false). | string | `` | no |
 | auto_IAM_mode | Create IAM Policies in AWS | string | `false` | no |
 | auto_IAM_path | IAM path for auto IAM mode uploaded policies | string | `/` | no |
@@ -78,4 +81,3 @@ module "jenkins" {
 | jenkins_username | Linux username for the instance. |
 | ssh_private_key | SSH private key. |
 | ssh_connection | SSH connection string for remote management. |
-

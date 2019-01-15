@@ -27,6 +27,10 @@ data "aws_ssm_parameter" "proxy_no" {
   name = "/proxy/no"
 }
 
+resource "random_id" "jenkins" {
+  byte_length = 8
+}
+
 locals {
   name                        = "${var.product_domain_name}-${var.environment_type}-${var.name_suffix}"
   jenkins_no_proxy_list       = "${join("\\n",split(",",data.aws_ssm_parameter.proxy_no.value))}"
@@ -76,7 +80,7 @@ data "template_file" "jenkins-jenkins_yaml" {
   template = "${file("${path.module}/jenkins/jenkins.yaml.tpl")}"
 
   vars {
-    jenkins_url             = "${aws_instance.jenkins_master_node.private_ip}:8080"
+    jenkins_url             = "http://${aws_route53_record.jenkins_master_node.name}:8080"
     jenkins_config_repo_url = "${var.jenkins_config_repo_url}"
 
     jenkins_job_repo_url           = "${var.jenkins_job_repo_url}"
@@ -143,6 +147,19 @@ resource "aws_instance" "jenkins_master_node" {
     volume_size = 64
     volume_type = "gp2"
   }
+}
+
+# Route53 configuration for the Jenkins master:
+data "aws_route53_zone" "selected" {
+  zone_id = "${var.jenkins_dns_domain_hosted_zone_ID}"
+}
+
+resource "aws_route53_record" "jenkins_master_node" {
+  zone_id = "${data.aws_route53_zone.selected.zone_id}"
+  name    = "${var.jenkins_dns_hostname}.${data.aws_route53_zone.selected.name}"
+  type    = "A"
+  ttl     = "300"
+  records = ["${aws_instance.jenkins_master_node.private_ip}"]
 }
 
 # Do the provisioning at this point
@@ -220,12 +237,12 @@ data "aws_iam_policy" "this" {
 }
 
 resource "aws_iam_instance_profile" "jenkins_master_node" {
-  name = "${local.name}"
+  name = "${local.name}-${random_id.jenkins.hex}"
   role = "${aws_iam_role.jenkins_master_node.name}"
 }
 
 resource "aws_iam_role" "jenkins_master_node" {
-  name = "${local.name}"
+  name = "${local.name}-${random_id.jenkins.hex}"
 
   assume_role_policy = <<EOF
 {
@@ -262,7 +279,7 @@ data "aws_iam_policy_document" "AssumeJenkinsCrossAccount" {
 # This policy is created only if auto policy creation is allowed (auto_IAM_mode)
 resource "aws_iam_policy" "AssumeJenkinsCrossAccount" {
   count  = "${var.auto_IAM_mode}"
-  name   = "AssumeJenkinsCrossAccount"
+  name   = "AssumeJenkinsCrossAccount-${random_id.jenkins.hex}"
   path   = "${var.auto_IAM_path}"
   policy = "${data.aws_iam_policy_document.AssumeJenkinsCrossAccount.json}"
 }
@@ -281,7 +298,7 @@ resource "aws_iam_role_policy_attachment" "jenkins_master_node_cross_account" {
 }
 
 resource "aws_security_group" "ssh" {
-  name        = "${local.name}"
+  name        = "jenkins-${random_id.jenkins.hex}"
   description = "Allow SSH access to instance"
   vpc_id      = "${var.vpc_id}"
 

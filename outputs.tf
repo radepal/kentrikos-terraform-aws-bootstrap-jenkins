@@ -1,6 +1,6 @@
 output "jenkins_web_url" {
   description = "URL for Jenkins web dashboard"
-  value       = "http://${aws_instance.jenkins_master_node.private_ip}:8080"
+  value       = "http://${aws_route53_record.jenkins_master_node.name}:8080"
 }
 
 output "jenkins_web_login" {
@@ -16,6 +16,11 @@ output "jenkins_web_password" {
 output "jenkins_private_ip" {
   description = "Private IP address assigned to the instance"
   value       = "${aws_instance.jenkins_master_node.private_ip}"
+}
+
+output "jenkins_dns_name" {
+  description = "FQDN associated with Jenkins master"
+  value       = "${aws_route53_record.jenkins_master_node.name}"
 }
 
 output "jenkins_username" {

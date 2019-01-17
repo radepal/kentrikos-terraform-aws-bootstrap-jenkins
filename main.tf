@@ -80,7 +80,7 @@ data "template_file" "jenkins-jenkins_yaml" {
   template = "${file("${path.module}/jenkins/jenkins.yaml.tpl")}"
 
   vars {
-    jenkins_url             = "http://${aws_route53_record.jenkins_master_node.name}:8080"
+    jenkins_url             = "${aws_route53_record.jenkins_master_node.name}:8080"
     jenkins_config_repo_url = "${var.jenkins_config_repo_url}"
 
     jenkins_job_repo_url           = "${var.jenkins_job_repo_url}"

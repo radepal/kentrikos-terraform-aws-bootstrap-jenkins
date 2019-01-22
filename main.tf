@@ -77,7 +77,7 @@ data "template_file" "jenkins-sysconfig" {
 }
 
 data "template_file" "docker-config" {
-  template = "${file("${path.module}/jenkins/jdocker_config.json.tpl")}"
+  template = "${file("${path.module}/jenkins/docker_config.json.tpl")}"
 
   vars {
     httpProxy  = "${data.aws_ssm_parameter.proxy_http.value}"

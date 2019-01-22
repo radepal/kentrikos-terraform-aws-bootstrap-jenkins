@@ -199,7 +199,7 @@ resource "null_resource" "node" {
   }
 
   provisioner "file" {
-    destination = "/tmp/var_lib_jenkins_docker_copnfig"
+    destination = "/tmp/var_lib_jenkins_docker_config"
     content     = "${data.template_file.docker-config.rendered}"
   }
 

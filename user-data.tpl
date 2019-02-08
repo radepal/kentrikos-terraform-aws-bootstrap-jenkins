@@ -54,6 +54,13 @@ chmod +x ark
 mv -i ark /usr/bin/
 rm -rf ark.tar.gz
 
+AWS_IAM_AUTH_VERSION=$(curl -s https://api.github.com/repos/kubernetes-sigs/aws-iam-authenticator/releases/latest | grep tag_name  | cut -d '"' -f 4)
+AWS_IAM_AUTH_VERSION_NUM=$(echo $AWS_IAM_AUTH_VERSION | cut -c 2-)
+AWS_IAM_AUTH_DOWNLOAD_URL="https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/${AWS_IAM_AUTH_VERSION}/heptio-authenticator-aws_${AWS_IAM_AUTH_VERSION_NUM}_linux_amd64"
+wget --quiet "$AWS_IAM_AUTH_DOWNLOAD_URL" -O aws-iam-authenticator
+chmod +x aws-iam-authenticator
+mv -i aws-iam-authenticator /usr/bin/
+
 curl -LO https://github.com/kubernetes/kops/releases/download/$$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 chmod +x kops-linux-amd64
 mv -i kops-linux-amd64 /usr/bin/kops

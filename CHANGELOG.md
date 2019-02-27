@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix for pining jobs on tag - use 0.2.0 instead */0.2.0
 ### Added
 - Included aws-iam-authenticator during Jenkins deployment
+- Jenkins environment variable with the IAM Cross account role name 
 
 ## [0.2.0] - 2019-02-25
 ### Changed

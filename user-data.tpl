@@ -71,7 +71,7 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 
 
-JX_VERSION=1.3.688
+JX_VERSION=1.3.737
 curl -s -f -L https://github.com/jenkins-x/jx/releases/download/v$${JX_VERSION}/jx-linux-amd64.tar.gz | tar xzv &&  mv jx /usr/bin/
 
 
@@ -89,5 +89,4 @@ echo lts > /var/lib/jenkins/jenkins.install.UpgradeWizard.state
 echo lts > /var/lib/jenkins/jenkins.install.InstallUtil.lastExecVersion
 
 
-systemctl enable jenkins
 

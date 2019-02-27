@@ -16,15 +16,15 @@ data "aws_ami" "amazon-linux" {
 }
 
 data "aws_ssm_parameter" "proxy_http" {
-  name = "/proxy/http"
+  name = "/${var.product_domain_name}/${var.environment_type}/proxy/http"
 }
 
 data "aws_ssm_parameter" "proxy_https" {
-  name = "/proxy/https"
+  name = "/${var.product_domain_name}/${var.environment_type}/proxy/https"
 }
 
 data "aws_ssm_parameter" "proxy_no" {
-  name = "/proxy/no"
+  name = "/${var.product_domain_name}/${var.environment_type}/proxy/no"
 }
 
 resource "random_id" "jenkins" {
@@ -36,8 +36,10 @@ locals {
   jenkins_no_proxy_list       = "${join("\\n",split(",",data.aws_ssm_parameter.proxy_no.value))}"
   jenkins_proxy_http          = "${element(split(":",replace(replace(data.aws_ssm_parameter.proxy_http.value,"http://",""),"https://","" )),0)}"
   iam_policy_names_list_local = "${join(",", var.iam_policy_names)}"
+  auto_iam_policy_names_sufix = "_${data.aws_region.current.name}_${var.product_domain_name}_${var.environment_type}"
 
   iam_policy_names_prefix = "${var.iam_policy_names_prefix  != "" ? var.iam_policy_names_prefix : "/"}"
+  iam_policy_names_sufix  = "${var.auto_IAM_mode == 1 ? local.auto_iam_policy_names_sufix : "" }"
 
   //  iam_policy_names_list_cross = "${var.iam_cross_account_policy_name != "" ? var.iam_cross_account_policy_name : ""}"
   iam_policy_names_list = "${local.iam_policy_names_list_local}"
@@ -243,14 +245,14 @@ resource "null_resource" "node" {
       "sudo mv /tmp/run_secret_admin_username /run/secrets/ADMIN_USER",
       "sudo mv /tmp/run_secret_admin_password /run/secrets/ADMIN_PASSWORD",
       "sudo mv /tmp/var_lib_jenkins_docker_config /var/lib/jenkins/.docker/config.json",
-      "sudo su - root -c  'bash /tmp/setup.sh |tee /var/log/setup_log' ",
+      "sudo su - root -c  'bash /tmp/setup.sh 2>&1 |tee /var/log/setup_log' ",
     ]
   }
 }
 
 data "aws_iam_policy" "this" {
   count = "${length(split(",",local.iam_policy_names_list))}"
-  arn   = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy${local.iam_policy_names_prefix}${element(split(",", local.iam_policy_names_list), count.index)}"
+  arn   = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy${local.iam_policy_names_prefix}${element(split(",", local.iam_policy_names_list), count.index)}${local.iam_policy_names_sufix}"
 }
 
 resource "aws_iam_instance_profile" "jenkins_master_node" {
@@ -288,7 +290,7 @@ data "aws_iam_policy_document" "AssumeJenkinsCrossAccount" {
     ]
 
     resources = [
-      "arn:aws:iam::${var.application_aws_account_number}:role/KopsCrossAccount",
+      "arn:aws:iam::${var.application_aws_account_number}:role/KENTRIKOS_${data.aws_region.current.name}_${var.product_domain_name}_${var.environment_type}_CrossAccount",
     ]
   }
 }
@@ -304,7 +306,7 @@ resource "aws_iam_policy" "AssumeJenkinsCrossAccount" {
 resource "aws_iam_role_policy_attachment" "jenkins_master_node" {
   role       = "${aws_iam_role.jenkins_master_node.name}"
   count      = "${length(split(",",local.iam_policy_names_list))}"
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy${local.iam_policy_names_prefix}${element(split(",",local.iam_policy_names_list), count.index)}"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy${local.iam_policy_names_prefix}${element(split(",",local.iam_policy_names_list), count.index)}${local.iam_policy_names_sufix}"
 }
 
 # This policy is attached only if auto policy creation is allowed (auto_IAM_mode)

@@ -107,8 +107,9 @@ data "template_file" "jenkins-jenkins_yaml" {
 
     iam_jobs_path = "${var.auto_IAM_mode == 1 ? "auto" : "manual" }"
 
-    product_domain_name = "${var.product_domain_name}"
-    environment_type    = "${var.environment_type}"
+    product_domain_name     = "${var.product_domain_name}"
+    environment_type        = "${var.environment_type}"
+    cross_account_role_name = "${local.cross_account_role_name}"
   }
 }
 

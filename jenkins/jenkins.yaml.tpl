@@ -35,6 +35,8 @@ jenkins:
         value: "${product_domain_name}"
       - key: "ENVIRONMENT_TYPE"
         value: "${environment_type}"
+      - key: "CROSS_ACCOUNT_ROLE_NAME"
+        value: "${cross_account_role_name}"
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: false

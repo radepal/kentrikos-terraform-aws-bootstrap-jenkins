@@ -252,7 +252,7 @@ resource "null_resource" "node" {
 
 data "aws_iam_policy" "this" {
   count = "${length(split(",",local.iam_policy_names_list))}"
-  arn   = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy${local.iam_policy_names_prefix}${element(split(",", local.iam_policy_names_list), count.index)}${local.iam_policy_names_sufix}""
+  arn   = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy${local.iam_policy_names_prefix}${element(split(",", local.iam_policy_names_list), count.index)}${local.iam_policy_names_sufix}"
 }
 
 resource "aws_iam_instance_profile" "jenkins_master_node" {

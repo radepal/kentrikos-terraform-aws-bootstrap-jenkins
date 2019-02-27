@@ -63,6 +63,8 @@ Environment="NO_PROXY=${data.aws_ssm_parameter.proxy_no.value}"
 EOC
 "
     EOF
+
+  cross_account_role_name = "KENTRIKOS_${data.aws_region.current.name}_${var.product_domain_name}_${var.environment_type}_CrossAccount"
 }
 
 data "template_file" "user_data" {
@@ -290,7 +292,7 @@ data "aws_iam_policy_document" "AssumeJenkinsCrossAccount" {
     ]
 
     resources = [
-      "arn:aws:iam::${var.application_aws_account_number}:role/KENTRIKOS_${data.aws_region.current.name}_${var.product_domain_name}_${var.environment_type}_CrossAccount",
+      "arn:aws:iam::${var.application_aws_account_number}:role/${local.cross_account_role_name}",
     ]
   }
 }

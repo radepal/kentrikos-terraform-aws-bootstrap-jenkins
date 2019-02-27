@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fix for attaching policies and suffixes to master jenkins.
 - Fix for pining jobs on tag - use 0.2.0 instead */0.2.0
+### Added
+- Included aws-iam-authenticator during Jenkins deployment
 
 ## [0.2.0] - 2019-02-25
 ### Changed

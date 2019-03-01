@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changed 
 - update jobs version to 0.2.1
+- Pin terraform to 0.11.11 instead of latest
 
 ## [0.2.1] - 2019-02-27
 ### Fixed

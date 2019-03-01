@@ -151,7 +151,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Install_JX") {
+      pipelineJob("JX_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -163,10 +163,29 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.2.1")
               }
             }
-            scriptPath("operations/jx/Jenkinsfile")
+            scriptPath("operations/jx/install/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("JX_Destroy") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.2.1")
+              }
+            }
+            scriptPath("operations/jx/destroy/Jenkinsfile")
           }
         }
        }

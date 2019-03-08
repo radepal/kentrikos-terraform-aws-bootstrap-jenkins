@@ -59,7 +59,7 @@ variable "iam_policy_names" {
   description = "(Optional) List of IAM policy names to apply to the instance."
 
   default = [
-    "KENTRIKOS_autoscaling_elb",
+    "KENTRIKOS_autoscaling_elb_eks",
     "KENTRIKOS_lma",
     "KENTRIKOS_dynamodb",
     "KENTRIKOS_ec2",

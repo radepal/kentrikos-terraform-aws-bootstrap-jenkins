@@ -70,7 +70,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/iam/create/${iam_jobs_path}/Jenkinsfile")
@@ -89,7 +89,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("application/iam/create/${iam_jobs_path}/Jenkinsfile")
@@ -108,7 +108,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/kubernetes/install/Jenkinsfile")
@@ -127,10 +127,29 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/kubernetes/destroy/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("Install_Kubernetes_Application_Account") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.3.0")
+              }
+            }
+            scriptPath("application/kubernetes/install_eks/Jenkinsfile")
           }
         }
        }
@@ -146,7 +165,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/images/jenkins-x-image/Jenkinsfile")
@@ -203,7 +222,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/grafana/install/Jenkinsfile")
@@ -222,7 +241,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/grafana/destroy/Jenkinsfile")
@@ -241,7 +260,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/prometheus/install/Jenkinsfile")
@@ -260,7 +279,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.2.0")
+                branch("0.3.0")
               }
             }
             scriptPath("operations/prometheus/destroy/Jenkinsfile")

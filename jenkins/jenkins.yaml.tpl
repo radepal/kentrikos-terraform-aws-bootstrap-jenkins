@@ -59,9 +59,9 @@ credentials:
 jobs:
   - script: >
       folder('Infrastructure')
-      folder('EKS')
+      folder('LMA')
       folder('Deployment')
-      folder('Extras')
+      folder('Experimental')
 
   - script: >
       pipelineJob("Infrastructure/Generate_IAM_Policies_Operations") {
@@ -102,7 +102,7 @@ jobs:
           }
         }
        }
-      pipelineJob("EKS/Kubernetes_Install") {
+      pipelineJob("Infrastructure/Kubernetes_Install_Operation_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -121,7 +121,7 @@ jobs:
           }
         }
        }
-      pipelineJob("EKS/Kubernetes_Destroy") {
+      pipelineJob("Infrastructure/Kubernetes_Destroy_Operation_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -140,7 +140,7 @@ jobs:
           }
         }
        }
-      pipelineJob("EKS/Install_Kubernetes_Application_Account") {
+      pipelineJob("Infrastructure/Install_Kubernetes_Application_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -159,7 +159,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/Kubernetes_Install") {
+      pipelineJob("Experimental/Kubernetes_Install_KOPS_Operation_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -178,7 +178,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/Kubernetes_Destroy") {
+      pipelineJob("Experimental/Kubernetes_Destroy_KOPS_Operation_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -197,7 +197,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/Generate_JX_Docker_Image") {
+      pipelineJob("Experimental/Generate_JX_Docker_Image") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -216,7 +216,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/JX_Install") {
+      pipelineJob("Experimental/JX_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -235,7 +235,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/JX_Destroy") {
+      pipelineJob("Experimental/JX_Destroy") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -254,7 +254,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/Grafana_Install") {
+      pipelineJob("LMA/Grafana_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -273,7 +273,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/Grafana_Destroy") {
+      pipelineJob("LMA/Grafana_Destroy") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -292,7 +292,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/Prometheus_ops_Install") {
+      pipelineJob("LMA/Prometheus_ops_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -311,7 +311,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Extras/Prometheus_ops_Destroy") {
+      pipelineJob("LMA/Prometheus_ops_Destroy") {
         description()
         disabled(false)
         keepDependencies(false)

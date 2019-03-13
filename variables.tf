@@ -1,10 +1,22 @@
-variable "name" {
-  description = "(Required) Name of the instance"
+variable "product_domain_name" {
+  description = "(Required) Name of product domain, will be used to create other names"
+}
+
+variable "environment_type" {
+  description = "(Required) Type of environment (e.g. test, production)"
 }
 
 variable "name_suffix" {
   description = "(Optional) Instance name suffix."
-  default     = "-jenkins-master-node"
+  default     = "jenkins-master-node"
+}
+
+variable "operations_aws_account_number" {
+  description = "AWS operations account number (without hyphens)"
+}
+
+variable "application_aws_account_number" {
+  description = "AWS application account number (without hyphens)"
 }
 
 variable "vpc_id" {
@@ -39,7 +51,7 @@ variable "http_allowed_cidrs" {
 
 variable "iam_policy_names_prefix" {
   description = "(Optional) Prefix for policy names created by portal."
-  default     = "customer/"
+  default     = "/"
 }
 
 variable "iam_policy_names" {
@@ -47,15 +59,15 @@ variable "iam_policy_names" {
   description = "(Optional) List of IAM policy names to apply to the instance."
 
   default = [
-    "KOPS_MANAGEMENT_NODE_autoscaling_elb",
-    "KOPS_MANAGEMENT_NODE_cw_cwlogs_sns",
-    "KOPS_MANAGEMENT_NODE_dynamodb",
-    "KOPS_MANAGEMENT_NODE_ec2",
-    "KOPS_MANAGEMENT_NODE_ecr",
-    "KOPS_MANAGEMENT_NODE_iam",
-    "KOPS_MANAGEMENT_NODE_s3",
-    "KOPS_MANAGEMENT_NODE_ssm",
-    "KOPS_MANAGEMENT_NODE_vpc",
+    "KENTRIKOS_autoscaling_elb_eks",
+    "KENTRIKOS_lma",
+    "KENTRIKOS_dynamodb",
+    "KENTRIKOS_ec2",
+    "KENTRIKOS_ecr_route53",
+    "KENTRIKOS_iam",
+    "KENTRIKOS_s3",
+    "KENTRIKOS_ssm",
+    "KENTRIKOS_vpc",
   ]
 }
 
@@ -92,9 +104,33 @@ variable "jenkins_admin_password" {
 
 variable "jenkins_job_repo_url" {
   description = "(Optional) Git repo url with Jenkins Jobs"
-  default     = "ssh://git@github.com:kentrikos/jenkins-bootstrap-pipelines.git"
+  default     = "https://github.com/kentrikos/jenkins-bootstrap-pipelines.git"
 }
 
 variable "jenkins_config_repo_url" {
   description = "Git repo url with Product Domain configuration"
+}
+
+variable "auto_IAM_mode" {
+  description = "Create IAM Policies in AWS"
+  default     = false
+}
+
+variable "auto_IAM_path" {
+  description = "IAM path for auto IAM mode uploaded policies"
+  default     = "/"
+}
+
+variable "jenkins_dns_domain_hosted_zone_ID" {
+  description = "R53 Hosted Zone ID for domain that will be used by Jenkins master"
+}
+
+variable "jenkins_dns_hostname" {
+  description = "Local part of FQDN for Jenkins master"
+  default     = "jenkins"
+}
+
+variable "region" {
+  description = "AWS region"
+  default     = "eu-central-1"
 }

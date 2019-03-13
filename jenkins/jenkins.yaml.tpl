@@ -102,7 +102,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Infrastructure/Kubernetes_Install_EKS_Operation_Account") {
+      pipelineJob("Infrastructure/Kubernetes_Install_EKS_Operations_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -121,7 +121,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Infrastructure/Kubernetes_Destroy_EKS_Operation_Account") {
+      pipelineJob("Infrastructure/Kubernetes_Destroy_EKS_Operations_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -159,7 +159,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Experimental/Kubernetes_Install_KOPS_Operation_Account") {
+      pipelineJob("Experimental/Kubernetes_Install_KOPS_OperationsAccount") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -178,7 +178,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Experimental/Kubernetes_Destroy_KOPS_Operation_Account") {
+      pipelineJob("Experimental/Kubernetes_Destroy_KOPS_OperationsAccount") {
         description()
         disabled(false)
         keepDependencies(false)

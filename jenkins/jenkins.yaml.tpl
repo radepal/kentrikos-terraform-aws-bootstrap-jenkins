@@ -58,7 +58,13 @@ credentials:
               privateKey: $${GITPRIVATEKEY}
 jobs:
   - script: >
-      pipelineJob("Generate_IAM_Policies_Operations") {
+      folder('Infrastructure')
+      folder('EKS')
+      folder('Deployment')
+      folder('Extras')
+
+  - script: >
+      pipelineJob("Infrastructure/Generate_IAM_Policies_Operations") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -70,14 +76,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
             scriptPath("operations/iam/create/${iam_jobs_path}/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Generate_IAM_Policies_Application") {
+      pipelineJob("Infrastructure/Generate_IAM_Policies_Application") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -89,14 +95,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
             scriptPath("application/iam/create/${iam_jobs_path}/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Kubernetes_Install") {
+      pipelineJob("EKS/Kubernetes_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -108,14 +114,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
-            scriptPath("operations/kubernetes/install/Jenkinsfile")
+            scriptPath("operations/kubernetes/install_eks/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Kubernetes_Destroy") {
+      pipelineJob("EKS/Kubernetes_Destroy") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -127,14 +133,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
-            scriptPath("operations/kubernetes/destroy/Jenkinsfile")
+            scriptPath("operations/kubernetes/destroy_eks/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Install_Kubernetes_Application_Account") {
+      pipelineJob("EKS/Install_Kubernetes_Application_Account") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -146,14 +152,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
             scriptPath("application/kubernetes/install_eks/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Generate_JX_Docker_Image") {
+      pipelineJob("Extras/Kubernetes_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -165,14 +171,52 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
+              }
+            }
+            scriptPath("operations/kubernetes/install_kops/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("Extras/Kubernetes_Destroy") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("operations/kubernetes/destroy_kops/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("Extras/Generate_JX_Docker_Image") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
               }
             }
             scriptPath("operations/images/jenkins-x-image/Jenkinsfile")
           }
         }
        }
-      pipelineJob("JX_Install") {
+      pipelineJob("Extras/JX_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -191,7 +235,7 @@ jobs:
           }
         }
        }
-      pipelineJob("JX_Destroy") {
+      pipelineJob("Extras/JX_Destroy") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -210,7 +254,7 @@ jobs:
           }
         }
        }
-      pipelineJob("Grafana_Install") {
+      pipelineJob("Extras/Grafana_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -222,14 +266,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
             scriptPath("operations/grafana/install/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Grafana_Destroy") {
+      pipelineJob("Extras/Grafana_Destroy") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -241,14 +285,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
             scriptPath("operations/grafana/destroy/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Prometheus_ops_Install") {
+      pipelineJob("Extras/Prometheus_ops_Install") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -260,14 +304,14 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
             scriptPath("operations/prometheus/install/Jenkinsfile")
           }
         }
        }
-      pipelineJob("Prometheus_ops_Destroy") {
+      pipelineJob("Extras/Prometheus_ops_Destroy") {
         description()
         disabled(false)
         keepDependencies(false)
@@ -279,7 +323,7 @@ jobs:
                   url("${jenkins_job_repo_url}")
                   credentials("bitbucket-key")
                 }
-                branch("0.3.0")
+                branch("0.4.0")
               }
             }
             scriptPath("operations/prometheus/destroy/Jenkinsfile")

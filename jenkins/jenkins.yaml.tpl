@@ -13,8 +13,8 @@ jenkins:
       allowsSignup: false
       enableCaptcha: false
       users:
-      - id: $${ADMIN_USER}
-        password: $${ADMIN_PASSWORD}
+      - id: $${ADMIN_USER:-Admin}
+        password: $${ADMIN_PASSWORD:-Password}
   authorizationStrategy:
     loggedInUsersCanDoAnything:
       allowAnonymousRead: false

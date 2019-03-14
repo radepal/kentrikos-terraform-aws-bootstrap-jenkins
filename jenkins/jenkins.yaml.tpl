@@ -59,8 +59,11 @@ credentials:
 jobs:
   - script: >
       folder('Infrastructure')
+  - script: >
       folder('LMA')
+  - script: >
       folder('Deployment')
+  - script: >
       folder('Experimental')
 
   - script: >

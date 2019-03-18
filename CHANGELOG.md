@@ -8,9 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Job folders: Infrastructure, EKS, Deployment, Extras
 - Job for separate eks/kops deployments
+- Job for Prometheus on application cluster
+- Job for Ingress on operations cluster
 
 ### Changed 
 - Move jobs to folders
+- Grafa and Prometheus job updated to support eks/kops
 
 ## [0.3.1] - 2019-03-11
 ## Added

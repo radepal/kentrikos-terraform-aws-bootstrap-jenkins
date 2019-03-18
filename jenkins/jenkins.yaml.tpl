@@ -261,6 +261,7 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
         definition {
           cpsScm {
             scm {
@@ -280,6 +281,7 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
         definition {
           cpsScm {
             scm {
@@ -295,10 +297,91 @@ jobs:
           }
         }
        }
+      pipelineJob("LMA/Ingress_ops_Install") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("operations/ingress/install/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("LMA/Ingress_ops_Destroy") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("operations/ingress/destroy/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("LMA/Prometheus_app_Install") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("application/prometheus/install/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("LMA/Prometheus_app_Destroy") {
+        description()
+        disabled(false)
+        keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("application/prometheus/destroy/Jenkinsfile")
+          }
+        }
+      }
       pipelineJob("LMA/Prometheus_ops_Install") {
         description()
         disabled(false)
         keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
         definition {
           cpsScm {
             scm {
@@ -318,6 +401,7 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
+        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
         definition {
           cpsScm {
             scm {

@@ -388,7 +388,7 @@ jobs:
             scriptPath("application/prometheus/destroy/Jenkinsfile")
           }
         }
-      }
+       }
       pipelineJob("LMA/Prometheus_ops_Install") {
         description()
         disabled(false)

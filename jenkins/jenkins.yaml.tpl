@@ -261,7 +261,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {
@@ -281,7 +283,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {
@@ -301,7 +305,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {
@@ -321,7 +327,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {
@@ -341,7 +349,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {
@@ -361,7 +371,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {
@@ -381,7 +393,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {
@@ -401,7 +415,9 @@ jobs:
         description()
         disabled(false)
         keepDependencies(false)
-        choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        parameters {
+           choiceParam('K8S_FLAVOR',["eks", "kops"],'Choose type of Kubernetes cluster (required for kops)')
+        }
         definition {
           cpsScm {
             scm {

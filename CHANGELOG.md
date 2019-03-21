@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed 
 - Move jobs to folders
-- Grafa and Prometheus job updated to support eks/kops
+- Grafana and Prometheus job updated to support eks/kops
+- Jobs displays name updated 
 
 ## [0.3.1] - 2019-03-11
 ## Added

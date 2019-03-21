@@ -67,7 +67,8 @@ jobs:
       folder('Experimental')
 
   - script: >
-      pipelineJob("Infrastructure/Generate_IAM_Policies_Operations") {
+      pipelineJob("Experimental/Generate_IAM_Policies_Operations") {
+        displayName('Generate IAM Policies for KOPS in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -86,7 +87,8 @@ jobs:
           }
         }
        }
-      pipelineJob("Infrastructure/Generate_IAM_Policies_Application") {
+      pipelineJob("Experimental/Generate_IAM_Policies_Application") {
+        displayName('Generate IAM Policies for KOPS in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -106,6 +108,7 @@ jobs:
         }
        }
       pipelineJob("Infrastructure/Kubernetes_Install_EKS_Operations_Account") {
+        displayName('Create EKS cluster in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -125,6 +128,7 @@ jobs:
         }
        }
       pipelineJob("Infrastructure/Kubernetes_Destroy_EKS_Operations_Account") {
+        displayName('Remove EKS cluster in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -144,6 +148,7 @@ jobs:
         }
        }
       pipelineJob("Infrastructure/Install_Kubernetes_EKS_Application_Account") {
+        displayName('Create EKS cluster in Application Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -162,7 +167,28 @@ jobs:
           }
         }
        }
+      pipelineJob("Infrastructure/Destroy_Kubernetes_EKS_Application_Account") {
+        displayName('Create EKS cluster in Application Account')
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("application/kubernetes/destroy_eks/Jenkinsfile")
+          }
+        }
+       }
       pipelineJob("Experimental/Kubernetes_Install_KOPS_OperationsAccount") {
+        displayName('Create KOPS cluster in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -182,6 +208,7 @@ jobs:
         }
        }
       pipelineJob("Experimental/Kubernetes_Destroy_KOPS_OperationsAccount") {
+        displayName('Remove KOPS cluster in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -200,7 +227,48 @@ jobs:
           }
         }
        }
+      pipelineJob("Experimental/Kubernetes_Install_KOPS_ApplicationAccount") {
+        displayName('Create KOPS cluster in Application Account')
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("application/kubernetes/install_kops/Jenkinsfile")
+          }
+        }
+       }
+      pipelineJob("Experimental/Kubernetes_Destroy_KOPS_ApplicationAccount") {
+        displayName('Remove KOPS cluster in Application Account')
+        description()
+        disabled(false)
+        keepDependencies(false)
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url("${jenkins_job_repo_url}")
+                  credentials("bitbucket-key")
+                }
+                branch("0.4.0")
+              }
+            }
+            scriptPath("application/kubernetes/destroy_kops/Jenkinsfile")
+          }
+        }
+       }
       pipelineJob("Experimental/Generate_JX_Docker_Image") {
+        displayName('Generate JenkinsX Image')
         description()
         disabled(false)
         keepDependencies(false)
@@ -220,6 +288,7 @@ jobs:
         }
        }
       pipelineJob("Experimental/JX_Install") {
+        displayName('Deploy JenkinsX in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -239,6 +308,7 @@ jobs:
         }
        }
       pipelineJob("Experimental/JX_Destroy") {
+        displayName('Destroy JenkinsX in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -258,6 +328,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Grafana_Install") {
+        displayName('Deploy Grafana in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -280,6 +351,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Grafana_Destroy") {
+        displayName('Destroy Grafana in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -302,6 +374,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Ingress_ops_Install") {
+        displayName('Create Ingress in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -324,6 +397,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Ingress_ops_Destroy") {
+        displayName('Remove Ingress in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -346,6 +420,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Prometheus_app_Install") {
+        displayName('Deploy Prometheus in Application Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -368,6 +443,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Prometheus_app_Destroy") {
+        displayName('Destroy Prometheus in Application Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -390,6 +466,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Prometheus_ops_Install") {
+        displayName('Deploy Prometheus in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)
@@ -412,6 +489,7 @@ jobs:
         }
        }
       pipelineJob("LMA/Prometheus_ops_Destroy") {
+        displayName('Destroy Prometheus in Operations Account')
         description()
         disabled(false)
         keepDependencies(false)

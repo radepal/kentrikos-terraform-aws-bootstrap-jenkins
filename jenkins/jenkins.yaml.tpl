@@ -168,7 +168,7 @@ jobs:
         }
        }
       pipelineJob("Infrastructure/Destroy_Kubernetes_EKS_Application_Account") {
-        displayName('Create EKS cluster in Application Account')
+        displayName('Remove EKS cluster in Application Account')
         description()
         disabled(false)
         keepDependencies(false)
